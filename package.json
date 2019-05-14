@@ -2,7 +2,7 @@
 	"name": "veriloghdl",
 	"displayName": "Verilog HDL/SystemVerilog",
 	"description": "Verilog HDL/SystemVerilog support for VS Code",
-	"version": "1.0.3",
+	"version": "9.9.9-hack",
 	"publisher": "mshr-h",
 	"homepage": "https://github.com/mshr-h/vscode-verilog-hdl-support",
 	"repository": {
@@ -83,6 +83,7 @@
 					"scope": "window",
 					"type": "string",
 					"enum": [
+						"xcelium",
 						"xvlog",
 						"iverilog",
 						"verilator",
@@ -90,7 +91,19 @@
 						"none"
 					],
 					"default": "none",
-					"description": "Select the verilog linter. Possible values are 'iverilog', 'verilator', xvlog' or 'none'"
+					"description": "Select the verilog linter. Possible values are 'xcelium', iverilog', 'verilator', xvlog' or 'none'"
+				},
+				"verilog.linting.xcelium.path": {
+					"scope": "window",
+					"type": "string",
+					"default": "xrun",
+					"description": "Path name of xcelium executable"
+				},
+				"verilog.linting.xcelium.arguments": {
+					"scope": "window",
+					"type": "string",
+					"default": "",
+					"description": "Add Xcelium arguments here. They will be added to Xcelium while linting."
 				},
 				"verilog.linting.iverilog.arguments": {
 					"scope": "window",

@@ -5,6 +5,7 @@ import IcarusLinter from "./IcarusLinter";
 import VerilatorLinter from "./VerilatorLinter";
 import XvlogLinter from "./XvlogLinter";
 import ModelsimLinter from "./ModelsimLinter";
+import XceliumLinter from "./XceliumLinter";
 
 export default class LintManager {
 
@@ -38,6 +39,9 @@ export default class LintManager {
                 break;
             case "verilator":
                 this.linter = new VerilatorLinter();
+                break;
+            case "xcelium":
+                this.linter = new XceliumLinter();
                 break;
             default:
                 console.log("Invalid linter name.")
@@ -84,7 +88,11 @@ export default class LintManager {
             },
             {   label: "verilator",
                 description: "Verilator"
-            }],
+            },
+            {   label: "xcelium",
+                description: "Xcelium"
+            },
+            ],
             {   matchOnDescription: true,
                 placeHolder: "Choose a linter to run",
             });
@@ -97,6 +105,7 @@ export default class LintManager {
                 case "xvlog":     tempLinter = new XvlogLinter;     break;
                 case "modelsim":  tempLinter = new ModelsimLinter;  break;
                 case "verilator": tempLinter = new VerilatorLinter; break;
+                case "xcelium":   tempLinter = new XceliumLinter;   break;
                 default:
                     return;
             }
