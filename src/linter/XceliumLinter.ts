@@ -1,12 +1,14 @@
 import {workspace, window, Disposable, Range, TextDocument, Diagnostic, DiagnosticSeverity, DiagnosticCollection, languages} from "vscode";
 import * as child from 'child_process';
 import BaseLinter from "./BaseLinter";
+import * as path from 'path';
 
 //var isWindows = process.platform === "win32";
 
 export default class ModelsimLinter extends BaseLinter {
     private xceliumArgs: string;
     private xceliumPath: string;
+    private xceliumIncludeFiledir: boolean;
 
     constructor() {
         super("xcelium");
@@ -20,10 +22,14 @@ export default class ModelsimLinter extends BaseLinter {
         //get custom arguments
         this.xceliumArgs = <string>workspace.getConfiguration().get('verilog.linting.xcelium.arguments');
         this.xceliumPath = <string>workspace.getConfiguration().get('verilog.linting.xcelium.path');
+        this.xceliumIncludeFiledir = <boolean>workspace.getConfiguration().get('verilog.linting.xcelium.includeFiledir');
     }
 
     protected lint(doc: TextDocument) {
         let command: string = this.xceliumPath + ' -compile -nocopyright -Q ' + doc.fileName + ' ' + this.xceliumArgs;     //command to execute
+        if (this.xceliumIncludeFiledir) {
+            command += '-incdir ' + path.dirname(doc.fileName);
+        }
         var process: child.ChildProcess = child.exec(command, {cwd:workspace.rootPath}, (error:Error, stdout: string, stderr: string) => {
             let diagnostics: Diagnostic[] = [];
             let lines = stdout.split(/\r?\n/g);

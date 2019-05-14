@@ -105,6 +105,12 @@
 					"default": "",
 					"description": "Add Xcelium arguments here. They will be added to Xcelium while linting."
 				},
+				"verilog.linting.xcelium.includeFiledir": {
+					"scope": "window",
+					"type": "boolean",
+					"default": "false",
+					"description": "Include path of file as -incdir argument to xrun."
+				},
 				"verilog.linting.iverilog.arguments": {
 					"scope": "window",
 					"type": "string",
