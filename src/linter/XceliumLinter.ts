@@ -28,7 +28,7 @@ export default class ModelsimLinter extends BaseLinter {
     protected lint(doc: TextDocument) {
         let command: string = this.xceliumPath + ' -compile -nocopyright -Q ' + doc.fileName + ' ' + this.xceliumArgs;     //command to execute
         if (this.xceliumIncludeFiledir) {
-            command += '-incdir ' + path.dirname(doc.fileName);
+            command += ' -incdir ' + path.dirname(doc.fileName);
         }
         var process: child.ChildProcess = child.exec(command, {cwd:workspace.rootPath}, (error:Error, stdout: string, stderr: string) => {
             let diagnostics: Diagnostic[] = [];
